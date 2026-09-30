@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Étoile | Modern Bistro & Artisanal Cafe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0F1115',
+                        'obsidian-card': '#161920',
+                        'obsidian-border': '#252932',
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB',
+                            dark: '#AA820A'
+                        },
+                        ivory: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1115;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #252932;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0BD 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-obsidian text-ivory font-sans antialiased selection:bg-gold selection:text-obsidian">
+
+    <!-- Navigation Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-obsidian/80 backdrop-blur-md border-b border-obsidian-border/50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full border border-gold/40 flex items-center justify-center text-gold group-hover:border-gold transition-colors">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl tracking-widest text-ivory font-semibold group-hover:text-gold transition-colors">L'ÉTOILE</span>
+                    <span class="text-[9px] tracking-[0.25em] text-gold/80 uppercase">Modern Bistro & Cafe</span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <nav class="hidden md:flex items-center gap-8 text-sm tracking-widest text-ivory/80 uppercase">
+                <a href="#about" class="hover:text-gold transition-colors">About</a>
+                <a href="#menu" class="hover:text-gold transition-colors">Menu</a>
+                <a href="#gallery" class="hover:text-gold transition-colors">Ambiance</a>
+                <a href="#contact" class="hover:text-gold transition-colors">Hours & Info</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="hidden md:flex items-center gap-4">
+                <button onclick="openModal()" class="px-6 py-2.5 bg-gold text-obsidian font-semibold text-xs uppercase tracking-widest rounded hover:bg-gold-light transition-all shadow-lg shadow-gold/10 hover:shadow-gold/20 flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4"></i> Reserve Table
+                </button>
+            </div>
+
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn" class="md:hidden text-ivory p-2 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-obsidian-card border-b border-obsidian-border px-6 py-6 space-y-4">
+            <a href="#about" class="mobile-nav-link block text-sm tracking-widest uppercase text-ivory/80 hover:text-gold">About</a>
+            <a href="#menu" class="mobile-nav-link block text-sm tracking-widest uppercase text-ivory/80 hover:text-gold">Menu</a>
+            <a href="#gallery" class="mobile-nav-link block text-sm tracking-widest uppercase text-ivory/80 hover:text-gold">Ambiance</a>
+            <a href="#contact" class="mobile-nav-link block text-sm tracking-widest uppercase text-ivory/80 hover:text-gold">Hours & Info</a>
+            <button onclick="openModal()" class="w-full py-3 bg-gold text-obsidian font-semibold text-xs uppercase tracking-widest rounded hover:bg-gold-light transition-all flex items-center justify-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4"></i> Reserve Table
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Overlay & Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2069&auto=format&fit=crop" 
+                 alt="Luxury Restaurant Background" 
+                 class="w-full h-full object-cover scale-105 filter brightness-50 contrast-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/60 to-obsidian/40"></div>
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(15,17,21,0.8)_100%)]"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-8 py-16">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-obsidian/60 backdrop-blur-md">
+                <i data-lucide="award" class="w-4 h-4 text-gold"></i>
+                <span class="text-xs tracking-widest text-gold uppercase">Michelin Selection & Artisanal Roastery</span>
+            </div>
+
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-normal leading-tight text-ivory">
+                Where French Elegance Meets <span class="italic font-light gold-gradient-text">Modern Passion</span>
+            </h1>
+
+            <p class="text-base md:text-lg text-ivory/70 max-w-2xl mx-auto font-light leading-relaxed">
+                Indulge in seasonal culinary artistry, artisanal morning brews, and handcrafted twilight cocktails in our intimate Parisian-inspired sanctuary.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <button onclick="openModal()" class="w-full sm:w-auto px-8 py-4 bg-gold text-obsidian font-semibold text-xs uppercase tracking-widest rounded hover:bg-gold-light transition-all shadow-xl shadow-gold/20 flex items-center justify-center gap-3">
+                    <span>Reserve Your Experience</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+                <a href="#menu" class="w-full sm:w-auto px-8 py-4 bg-obsidian-card/80 border border-obsidian-border text-ivory hover:border-gold/50 font-semibold text-xs uppercase tracking-widest rounded transition-all backdrop-blur-sm text-center">
+                    Explore Seasonal Menu
+                </a>
+            </div>
+
+            <!-- Quick Info Bar -->
+            <div class="pt-12 grid grid-cols-2 md:grid-cols-3 gap-6 border-t border-obsidian-border/50 max-w-3xl mx-auto text-left">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded bg-gold/10 flex items-center justify-center text-gold">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-ivory/50 uppercase tracking-wider">Open Daily</p>
+                        <p class="text-sm font-medium text-ivory">7:30 AM - 11:00 PM</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded bg-gold/10 flex items-center justify-center text-gold">
+                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-ivory/50 uppercase tracking-wider">Location</p>
+                        <p class="text-sm font-medium text-ivory">742 Fifth Ave, New York</p>
+                    </div>
+                </div>
+                <div class="col-span-2 md:col-span-1 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded bg-gold/10 flex items-center justify-center text-gold">
+                        <i data-lucide="utensils" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-ivory/50 uppercase tracking-wider">Atmosphere</p>
+                        <p class="text-sm font-medium text-ivory">Smart Casual / Fine Dining</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story & Concept Section -->
+    <section id="about" class="py-24 bg-obsidian relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2">
+                        <span class="w-8 h-[1px] bg-gold"></span>
+                        <span class="text-xs uppercase tracking-widest text-gold font-medium">Our Heritage</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-ivory font-normal leading-tight">
+                        Crafted with Precision, <br>Served with <span class="italic text-gold">Artistry</span>
+                    </h2>
+                    <p class="text-ivory/70 leading-relaxed font-light">
+                        Founded by Executive Chef Laurent Mercier and Master Barista Elena Rostova, L'Étoile harmonizes classic French gastronomy with modern culinary innovation. Every dish is a tribute to local biodynamic farms and sustainable fisheries.
+                    </p>
+                    <p class="text-ivory/70 leading-relaxed font-light">
+                        By morning, sunlight pours over artisanal espresso and buttery viennoiseries. By twilight, soft jazz fills the air alongside craft botanical cocktails and dry-aged delicacies.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-obsidian-border">
+                        <div>
+                            <span class="font-serif text-3xl text-gold font-semibold">100%</span>
+                            <p class="text-xs text-ivory/60 uppercase tracking-wider mt-1">Organic & Farm Sourced</p>
+                        </div>
+                        <div>
+                            <span class="font-serif text-3xl text-gold font-semibold">12+</span>
+                            <p class="text-xs text-ivory/60 uppercase tracking-wider mt-1">Sommelier Wine Pairings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="aspect-[4/5] rounded-lg overflow-hidden border border-obsidian-border gold-border-glow">
+                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=2070&auto=format&fit=crop" 
+                             alt="Chef plating dish" 
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <!-- Overlay Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-obsidian-card p-6 rounded border border-gold/30 hidden sm:block max-w-xs shadow-2xl">
+                        <div class="flex items-center gap-1 text-gold mb-2">
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                        </div>
+                        <p class="text-xs text-ivory/80 italic font-serif">"An unforgettable culinary experience that redefining NYC dining."</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gold mt-2 font-semibold">— Culinary Times</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Menu Section -->
+    <section id="menu" class="py-24 bg-obsidian-card border-y border-obsidian-border relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-12">
+                <span class="text-xs uppercase tracking-widest text-gold font-medium">Curated Offerings</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-ivory font-normal">Our Seasonal Menu</h2>
+                <p class="text-ivory/60 text-sm font-light">Explore our thoughtfully designed culinary categories, crafted with the freshest seasonal ingredients.</p>
+            </div>
+
+            <!-- Menu Category Selector Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="switchTab('bistro')" id="tab-bistro" class="menu-tab px-6 py-3 rounded text-xs font-semibold tracking-widest uppercase transition-all border border-gold bg-gold text-obsidian">
+                    All-Day Bistro
+                </button>
+                <button onclick="switchTab('cafe')" id="tab-cafe" class="menu-tab px-6 py-3 rounded text-xs font-semibold tracking-widest uppercase transition-all border border-obsidian-border bg-obsidian text-ivory/70 hover:border-gold/50">
+                    Artisanal Cafe & Bakery
+                </button>
+                <button onclick="switchTab('cocktails')" id="tab-cocktails" class="menu-tab px-6 py-3 rounded text-xs font-semibold tracking-widest uppercase transition-all border border-obsidian-border bg-obsidian text-ivory/70 hover:border-gold/50">
+                    Craft Cocktails & Wine
+                </button>
+            </div>
+
+            <!-- Category 1: Bistro Menu Content -->
+            <div id="content-bistro" class="menu-content grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop" alt="Seared Scallops" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Pan-Seared Hokkaido Scallops</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$38</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Cauliflower mousseline, brown butter emulsion, toasted hazelnuts & crisp capers.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gold/10 text-gold border border-gold/20 uppercase tracking-wider">GF</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-obsidian-border text-ivory/70 uppercase tracking-wider">Chef's Choice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=300&auto=format&fit=crop" alt="Prime Ribeye" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Dry-Aged Wagyu Ribeye</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$64</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">45-day aged Wagyu, truffle pommes purée, charred shallot jus, roasted bone marrow.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gold/10 text-gold border border-gold/20 uppercase tracking-wider">GF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281288?q=80&w=300&auto=format&fit=crop" alt="Truffle Pasta" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Hand-Cut Truffle Tagliolini</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$34</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">House-made pasta, shaved black Perigord truffles, 36-month Parmigiano Reggiano.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 uppercase tracking-wider">Vegetarian</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=300&auto=format&fit=crop" alt="Wild Salmon" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Wild King Salmon En Papillote</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$42</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Braised fennel, heirloom cherry tomatoes, saffron beurre blanc & dill oils.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gold/10 text-gold border border-gold/20 uppercase tracking-wider">GF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 2: Cafe & Bakery Menu Content -->
+            <div id="content-cafe" class="menu-content hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=300&auto=format&fit=crop" alt="Croissant" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Pistachio & Rose Croissant</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$9.50</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Flaky artisanal butter pastry filled with Sicilian pistachio praline & subtle rosewater glaze.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-obsidian-border text-ivory/70 uppercase tracking-wider">Fresh Baked Daily</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=300&auto=format&fit=crop" alt="Matcha Latte" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Ceremonial Uji Matcha Latte</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$8.00</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">First-harvest Kyoto Uji matcha, oat milk, infused with Madagascar vanilla bean.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 uppercase tracking-wider">Vegan</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop" alt="Avocado Toast" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Truffled Avocado Tartine</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$19.00</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Sourdough bread, smashed Hass avocado, soft poached organic egg, white truffle oil & microgreens.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 uppercase tracking-wider">Vegetarian</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1579888926999-2917300135c7?q=80&w=300&auto=format&fit=crop" alt="Pourover Coffee" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Single Origin Geisha Pour-Over</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$12.00</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Panama Hacienda La Esmeralda beans with delicate notes of jasmine, bergamot & peach nectar.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gold/10 text-gold border border-gold/20 uppercase tracking-wider">Specialty Craft</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category 3: Cocktails & Wine Menu Content -->
+            <div id="content-cocktails" class="menu-content hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=300&auto=format&fit=crop" alt="Cocktail" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">The Golden Étoile Smoke</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$22</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Japanese Yamazaki Whiskey, gold leaf tincture, smoked rosemary & black walnut bitters.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gold/10 text-gold border border-gold/20 uppercase tracking-wider">Signature</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=300&auto=format&fit=crop" alt="French 75" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Lavender Empress Spritz</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$19</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Empress 1908 Gin, organic house lavender syrup, fresh lemon, topped with Veuve Clicquot.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-obsidian-border text-ivory/70 uppercase tracking-wider">Refreshing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=300&auto=format&fit=crop" alt="Red Wine" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Château Margaux Grand Cru 2015</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$45 / Glass</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Bordeaux Vintage, deep blackberry, cedarwood notes, silky tannins & velvety finish.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-gold/10 text-gold border border-gold/20 uppercase tracking-wider">Sommelier Reserve</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-obsidian border border-obsidian-border rounded-lg p-4 flex gap-4 hover:border-gold/40 transition-colors group">
+                    <img src="https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?q=80&w=300&auto=format&fit=crop" alt="Espresso Martini" class="w-24 h-24 object-cover rounded flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-serif text-lg text-ivory font-medium group-hover:text-gold transition-colors">Midnight Espresso Martini</h3>
+                                <span class="font-serif text-gold font-semibold text-lg">$20</span>
+                            </div>
+                            <p class="text-xs text-ivory/60 mt-1 font-light leading-relaxed">Belvedere Vodka, fresh single-origin espresso shot, Mr Black liqueur, cacao nib foam.</p>
+                        </div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-obsidian-border text-ivory/70 uppercase tracking-wider">Nightcap</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button onclick="openModal()" class="px-8 py-3 bg-transparent border border-gold text-gold hover:bg-gold hover:text-obsidian transition-all text-xs uppercase tracking-widest font-semibold rounded">
+                    Book Table For Full Tasting Menu
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ambiance Gallery Section -->
+    <section id="gallery" class="py-24 bg-obsidian relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                <span class="text-xs uppercase tracking-widest text-gold font-medium">Visual Journey</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-ivory font-normal">Atmosphere & Design</h2>
+                <p class="text-ivory/60 text-sm font-light">Every corner of L'Étoile is sculpted for sensory comfort, blending dark marble, ambient warm brass illumination, and velvet seating.</p>
+            </div>
+
+            <!-- Grid Gallery -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="relative group overflow-hidden rounded-lg aspect-square border border-obsidian-border">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop" alt="Interior Dining Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity flex items-end p-6">
+                        <div>
+                            <p class="text-sm font-serif text-gold">Main Dining Salon</p>
+                            <p class="text-xs text-ivory/70">Warm ambient brass lighting & plush velvet seating</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-lg aspect-square border border-obsidian-border">
+                    <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?q=80&w=800&auto=format&fit=crop" alt="Coffee Roastery Bar" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity flex items-end p-6">
+                        <div>
+                            <p class="text-sm font-serif text-gold">Artisanal Coffee Bar</p>
+                            <p class="text-xs text-ivory/70">Single-origin beans roasted daily in-house</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-lg aspect-square border border-obsidian-border">
+                    <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=800&auto=format&fit=crop" alt="Cocktail Lounge" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity flex items-end p-6">
+                        <div>
+                            <p class="text-sm font-serif text-gold">Twilight Mixology Bar</p>
+                            <p class="text-xs text-ivory/70">Curated rare spirits & botanical liqueurs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative group overflow-hidden rounded-lg aspect-square border border-obsidian-border">
+                    <img src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?q=80&w=800&auto=format&fit=crop" alt="Courtyard Terrace" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent opacity-0 group-hover:opacity-90 transition-opacity flex items-end p-6">
+                        <div>
+                            <p class="text-sm font-serif text-gold">Private Garden Courtyard</p>
+                            <p class="text-xs text-ivory/70">Heated alfresco dining surrounded by greenery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact Section -->
+    <section id="contact" class="py-24 bg-obsidian-card border-t border-obsidian-border">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Info Cards -->
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-gold font-medium">Visit Us</span>
+                        <h2 class="font-serif text-4xl text-ivory font-normal mt-2">Hours & Location</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-gold/10 border border-gold/20 flex items-center justify-center text-gold flex-shrink-0 mt-1">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm uppercase tracking-wider text-gold font-semibold">Address</h3>
+                                <p class="text-ivory/80 text-sm mt-1">742 Fifth Avenue, Upper East Side</p>
+                                <p class="text-ivory/50 text-xs">New York, NY 10019</p>
+                                <p class="text-xs text-gold/80 mt-1">Valet Parking Available at Main Entrance</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-gold/10 border border-gold/20 flex items-center justify-center text-gold flex-shrink-0 mt-1">
+                                <i data-lucide="clock" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm uppercase tracking-wider text-gold font-semibold">Hours of Service</h3>
+                                <p class="text-ivory/80 text-sm mt-1"><strong class="text-gold font-normal">Morning Cafe:</strong> Mon - Sun | 7:30 AM - 11:30 AM</p>
+                                <p class="text-ivory/80 text-sm"><strong class="text-gold font-normal">Bistro & Lunch:</strong> Mon - Sun | 12:00 PM - 3:30 PM</p>
+                                <p class="text-ivory/80 text-sm"><strong class="text-gold font-normal">Dinner & Lounge:</strong> Mon - Sun | 5:00 PM - 11:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded bg-gold/10 border border-gold/20 flex items-center justify-center text-gold flex-shrink-0 mt-1">
+                                <i data-lucide="phone-call" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm uppercase tracking-wider text-gold font-semibold">Private Events & Inquiries</h3>
+                                <p class="text-ivory/80 text-sm mt-1">+1 (212) 555-0198</p>
+                                <p class="text-ivory/50 text-xs">concierge@letoile-bistro.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Location Map Placeholder -->
+                <div class="bg-obsidian border border-obsidian-border p-6 rounded-lg space-y-4 relative overflow-hidden">
+                    <div class="aspect-video w-full rounded bg-obsidian-card relative overflow-hidden border border-obsidian-border flex items-center justify-center">
+                        <!-- Stylized Map Pattern -->
+                        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                        <div class="relative z-10 text-center p-6 space-y-3">
+                            <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto text-gold animate-bounce">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <p class="font-serif text-lg text-ivory">Heart of Upper East Side, Manhattan</p>
+                            <p class="text-xs text-ivory/60 max-w-xs mx-auto">Located just two blocks from Central Park on Fifth Avenue.</p>
+                            <a href="https://maps.google.com" target="_blank" class="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-gold hover:underline pt-2">
+                                Open in Google Maps <i data-lucide="external-link" class="w-3 h-3"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-obsidian border-t border-obsidian-border py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center space-y-6">
+            <div class="flex justify-center items-center gap-3">
+                <div class="w-8 h-8 rounded-full border border-gold/40 flex items-center justify-center text-gold">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                </div>
+                <span class="font-serif text-xl tracking-widest text-ivory">L'ÉTOILE</span>
+            </div>
+
+            <div class="flex justify-center gap-6 text-xs uppercase tracking-widest text-ivory/60">
+                <a href="#about" class="hover:text-gold transition-colors">About</a>
+                <a href="#menu" class="hover:text-gold transition-colors">Menu</a>
+                <a href="#gallery" class="hover:text-gold transition-colors">Gallery</a>
+                <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
+            </div>
+
+            <p class="text-xs text-ivory/40">&copy; 2026 L'Étoile Modern Bistro & Cafe. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Reservation Modal -->
+    <div id="reservation-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-obsidian/90 backdrop-blur-md">
+        <div class="bg-obsidian-card border border-gold/30 w-full max-w-lg rounded-lg p-6 sm:p-8 relative shadow-2xl space-y-6">
+            <!-- Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-ivory/60 hover:text-gold">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <span class="text-xs uppercase tracking-widest text-gold font-medium">Table Reservation</span>
+                <h3 class="font-serif text-3xl text-ivory">Reserve Your Experience</h3>
+                <p class="text-xs text-ivory/60">Please provide your details below to request a dining table.</p>
+            </div>
+
+            <form id="reservation-form" onsubmit="handleReservationSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Full Name</label>
+                        <input type="text" required placeholder="Julian Vance" class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-sm text-ivory focus:border-gold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Phone Number</label>
+                        <input type="tel" required placeholder="+1 (555) 000-0000" class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-sm text-ivory focus:border-gold focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Date</label>
+                        <input type="date" required class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-xs text-ivory focus:border-gold focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Time</label>
+                        <select required class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-xs text-ivory focus:border-gold focus:outline-none">
+                            <option>08:00 AM (Breakfast)</option>
+                            <option>10:00 AM (Brunch)</option>
+                            <option>01:00 PM (Lunch)</option>
+                            <option>06:30 PM (Dinner)</option>
+                            <option>08:30 PM (Dinner)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Guests</label>
+                        <select required class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-xs text-ivory focus:border-gold focus:outline-none">
+                            <option>1 Guest</option>
+                            <option selected>2 Guests</option>
+                            <option>3 Guests</option>
+                            <option>4 Guests</option>
+                            <option>5+ Guests (Private)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Seating Preference</label>
+                    <select class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-xs text-ivory focus:border-gold focus:outline-none">
+                        <option>Main Dining Room</option>
+                        <option>Private Courtyard Terrace</option>
+                        <option>Chef's Counter</option>
+                        <option>Cocktail Lounge</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-ivory/70 mb-1">Special Requests / Allergies</label>
+                    <textarea rows="2" placeholder="Dietary restrictions, anniversary celebration..." class="w-full bg-obsidian border border-obsidian-border rounded px-3 py-2 text-xs text-ivory focus:border-gold focus:outline-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-gold text-obsidian font-semibold text-xs uppercase tracking-widest rounded hover:bg-gold-light transition-all shadow-lg shadow-gold/20">
+                    Confirm Reservation Request
+                </button>
+            </form>
+
+            <!-- Success Confirmation Box -->
+            <div id="reservation-success" class="hidden text-center space-y-4 py-6">
+                <div class="w-12 h-12 rounded-full bg-gold/20 border border-gold flex items-center justify-center mx-auto text-gold">
+                    <i data-lucide="check" class="w-6 h-6"></i>
+                </div>
+                <h4 class="font-serif text-2xl text-ivory">Reservation Request Received</h4>
+                <p class="text-xs text-ivory/70">Thank you! Our concierge will review your reservation and send a confirmation SMS shortly.</p>
+                <button onclick="closeModal()" class="px-6 py-2 bg-obsidian border border-gold text-gold text-xs uppercase tracking-widest rounded hover:bg-gold hover:text-obsidian transition-colors">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on navigation link click
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Menu Tab Switcher Logic
+        function switchTab(category) {
+            // Hide all content blocks
+            document.querySelectorAll('.menu-content').forEach(el => el.classList.add('hidden'));
+            
+            // Reset all tab button styles
+            document.querySelectorAll('.menu-tab').forEach(btn => {
+                btn.className = "menu-tab px-6 py-3 rounded text-xs font-semibold tracking-widest uppercase transition-all border border-obsidian-border bg-obsidian text-ivory/70 hover:border-gold/50";
+            });
+
+            // Show selected category
+            const activeContent = document.getElementById(`content-${category}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+
+            // Highlight active tab
+            const activeTab = document.getElementById(`tab-${category}`);
+            if (activeTab) {
+                activeTab.className = "menu-tab px-6 py-3 rounded text-xs font-semibold tracking-widest uppercase transition-all border border-gold bg-gold text-obsidian";
+            }
+        }
+
+        // Reservation Modal Control
+        const modal = document.getElementById('reservation-modal');
+        function openModal() {
+            modal.classList.remove('hidden');
+        }
+        function closeModal() {
+            modal.classList.add('hidden');
+            // Reset form status
+            document.getElementById('reservation-form').classList.remove('hidden');
+            document.getElementById('reservation-success').classList.add('hidden');
+        }
+
+        // Handle Reservation Submission
+        function handleReservationSubmit(e) {
+            e.preventDefault();
+            document.getElementById('reservation-form').classList.add('hidden');
+            document.getElementById('reservation-success').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
